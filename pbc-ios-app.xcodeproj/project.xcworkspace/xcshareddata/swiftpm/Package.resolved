@@ -1,6 +1,15 @@
 {
-  "originHash" : "77b01477e60d8bd8ad096175aec38c4166162dfc8332e44123c98ea398d0b9ab",
+  "originHash" : "74217d9723776cc9b5608efba66fb1527b23fde983d67ffd85d33389459fd216",
   "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "513364f870f6bfc468f9d2ff0a95caccc10044c5",
+        "version" : "5.10.2"
+      }
+    },
     {
       "identity" : "kvcolorpalette-ios",
       "kind" : "remoteSourceControl",

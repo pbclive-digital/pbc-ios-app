@@ -12,6 +12,7 @@
 		5A43145B2EE79A6300003CE3 /* LibCommonUi in Frameworks */ = {isa = PBXBuildFile; productRef = 5A43145A2EE79A6300003CE3 /* LibCommonUi */; };
 		5A43145E2EE79A9B00003CE3 /* KvColorPalette-iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 5A43145D2EE79A9B00003CE3 /* KvColorPalette-iOS */; };
 		5A4314612EE79EC500003CE3 /* UiSplash in Frameworks */ = {isa = PBXBuildFile; productRef = 5A4314602EE79EC500003CE3 /* UiSplash */; };
+		5A4314662EE7BB3900003CE3 /* LibNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 5A4314652EE7BB3900003CE3 /* LibNetwork */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		5A4314572EE7994300003CE3 /* LibCommonData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LibCommonData; sourceTree = "<group>"; };
 		5A43145F2EE79CE200003CE3 /* UiSplash */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UiSplash; sourceTree = "<group>"; };
 		5A4314632EE7B82F00003CE3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5A4314642EE7B9AA00003CE3 /* LibNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LibNetwork; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -39,6 +41,7 @@
 				5A43145B2EE79A6300003CE3 /* LibCommonUi in Frameworks */,
 				5A4314612EE79EC500003CE3 /* UiSplash in Frameworks */,
 				5A43145E2EE79A9B00003CE3 /* KvColorPalette-iOS in Frameworks */,
+				5A4314662EE7BB3900003CE3 /* LibNetwork in Frameworks */,
 				5A4314552EE798D200003CE3 /* LibParent in Frameworks */,
 				5A4314592EE79A5D00003CE3 /* LibCommonData in Frameworks */,
 			);
@@ -55,6 +58,7 @@
 				5A4314522EE797B100003CE3 /* LibParent */,
 				5A4314572EE7994300003CE3 /* LibCommonData */,
 				5A4314562EE7991100003CE3 /* LibCommonUi */,
+				5A4314642EE7B9AA00003CE3 /* LibNetwork */,
 				5A43145F2EE79CE200003CE3 /* UiSplash */,
 				5A4314532EE798D200003CE3 /* Frameworks */,
 				5A4314382EE77E6000003CE3 /* Products */,
@@ -101,6 +105,7 @@
 				5A43145A2EE79A6300003CE3 /* LibCommonUi */,
 				5A43145D2EE79A9B00003CE3 /* KvColorPalette-iOS */,
 				5A4314602EE79EC500003CE3 /* UiSplash */,
+				5A4314652EE7BB3900003CE3 /* LibNetwork */,
 			);
 			productName = "pbc-ios-app";
 			productReference = 5A4314372EE77E6000003CE3 /* pbc-ios-app.app */;
@@ -293,6 +298,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "PBC - Debug";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -338,6 +345,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PBC;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -425,6 +434,10 @@
 		5A4314602EE79EC500003CE3 /* UiSplash */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UiSplash;
+		};
+		5A4314652EE7BB3900003CE3 /* LibNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LibNetwork;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
