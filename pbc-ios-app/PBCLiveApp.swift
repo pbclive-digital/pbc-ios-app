@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import UiSplash
 
 @main
-struct pbc_ios_appApp: App {
+struct PBCLiveApp: App {
+
+    @UIApplicationDelegateAdaptor(PBCLiveAppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            UiSplash().retrieveEntryUI()
         }
     }
 }

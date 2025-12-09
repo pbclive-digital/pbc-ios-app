@@ -1,0 +1,15 @@
+{
+  "originHash" : "77b01477e60d8bd8ad096175aec38c4166162dfc8332e44123c98ea398d0b9ab",
+  "pins" : [
+    {
+      "identity" : "kvcolorpalette-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KvColorPalette/KvColorPalette-iOS",
+      "state" : {
+        "revision" : "cc3750cd538b98c720593cee4b5f08433ddd31d2",
+        "version" : "2.0.1"
+      }
+    }
+  ],
+  "version" : 3
+}
