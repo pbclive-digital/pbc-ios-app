@@ -20,6 +20,7 @@
 		5A4314562EE7991100003CE3 /* LibCommonUi */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LibCommonUi; sourceTree = "<group>"; };
 		5A4314572EE7994300003CE3 /* LibCommonData */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LibCommonData; sourceTree = "<group>"; };
 		5A43145F2EE79CE200003CE3 /* UiSplash */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UiSplash; sourceTree = "<group>"; };
+		5A4314632EE7B82F00003CE3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -49,6 +50,7 @@
 		5A43142E2EE77E6000003CE3 = {
 			isa = PBXGroup;
 			children = (
+				5A4314632EE7B82F00003CE3 /* README.md */,
 				5A4314392EE77E6000003CE3 /* pbc-ios-app */,
 				5A4314522EE797B100003CE3 /* LibParent */,
 				5A4314572EE7994300003CE3 /* LibCommonData */,
