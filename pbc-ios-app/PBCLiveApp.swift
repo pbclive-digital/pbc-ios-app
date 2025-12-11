@@ -1,5 +1,5 @@
 //
-//  pbc_ios_appApp.swift
+//  PBCLiveApp.swift
 //  pbc-ios-app
 //
 //  Created by Kavimal Wijewardana on 12/8/25.

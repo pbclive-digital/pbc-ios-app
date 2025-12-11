@@ -9,7 +9,9 @@ import LibCommonUi
 import KvColorPalette_iOS
 
 struct SplashView: View {
+    
     @State private var wave = false
+    @ObservedObject var splashViewModel = SplashViewModel()
     
     var body: some View {
         NavigationStack {
@@ -30,6 +32,12 @@ struct SplashView: View {
                     .foregroundColor(.white)
             }.onAppear {
                 self.wave.toggle()
+                
+                splashViewModel.fetchVersionSupportStatus(onSuccess: {
+                    print(">>>>>>>>>>>>> SUCCESS")
+                }, onFailure: {
+                    print(">>>>>>>>>>>>> FAILURE")
+                })
             }.animation(
                 Animation.easeIn(duration: 3).repeatForever(autoreverses: false), value: wave
             )

@@ -7,19 +7,11 @@
 import Foundation
 import Alamofire
 
-public class Network {
+public class Network: NetworkProtocol, @unchecked Sendable {
 
-    var network: Network?
     var netConfig: NetConfig? = nil
 
     public init() {}
-
-    public func getInstance() -> Network? {
-        if (network == nil) {
-            network = Network()
-        }
-        return network
-    }
 
     public func initialize(netConfig: NetConfig) {
         self.netConfig = netConfig

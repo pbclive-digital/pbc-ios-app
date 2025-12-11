@@ -19,10 +19,11 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/hmlongco/Factory.git", from: "2.5.3"),
         .package(path: "../LibParent"),
         .package(path: "../LibCommonData"),
         .package(path: "../LibCommonUi"),
-        //.package(path: "../LibNetwork")
+        .package(path: "../LibNetwork")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -30,10 +31,11 @@ let package = Package(
         .target(
             name: "UiSplash",
             dependencies: [
+                "Factory",
                 "LibParent",
                 "LibCommonData",
                 "LibCommonUi",
-                //"LibNetwork"
+                "LibNetwork"
             ]
         ),
 

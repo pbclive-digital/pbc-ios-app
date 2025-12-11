@@ -3,11 +3,11 @@
 import SwiftUI
 import LibParent
 
-public class UiSplash: SplashContract {
+public class UiSplash: @MainActor SplashContract {
     
     public init() {}
     
-    public func retrieveEntryUI() -> AnyView {
+    @MainActor public func retrieveEntryUI() -> AnyView {
         return AnyView(SplashView())
     }
     

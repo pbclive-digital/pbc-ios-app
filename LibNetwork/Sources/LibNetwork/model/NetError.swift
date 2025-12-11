@@ -10,7 +10,7 @@ import Foundation
 //    case HTTP_ERROR, UNATHORIZED, NO_INTERNET, NO_CONNECTION, ALAMOFIRE_FAILURE, NO_SURVEY_SELECTED
 //}
 
-public enum AppErrorType: String, Codable {
+public enum AppErrorType: String, Codable, Sendable {
     case HTTP_ERROR = "HTTP_ERROR"
     case UNATHORIZED = "UNATHORIZED"
     case NO_INTERNET = "NO_INTERNET"
@@ -29,7 +29,7 @@ public enum AppErrorNavigateType: String, Codable {
     case BACK = "BACK"
 }
 
-public struct NetError: Codable {
+public struct NetError: Codable, Sendable {
     public var errorType: AppErrorType
     public var errorCode: Int? = nil
     public var errorMessage: String? = nil
