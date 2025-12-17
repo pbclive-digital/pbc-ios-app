@@ -170,15 +170,15 @@ public class Network: NetworkProtocol, @unchecked Sendable {
                 HTTPHeader(name: "X-app-os", value: "ios")
         ]
 
-//        if let token = Session.getInstance()?.authToken?.token {
-//            headers.append(HTTPHeader(name: "Authorization", value: "Bearer \(token)"))
-//        }
-//
-//        if let user = Session.getInstance()?.user {
-//            if let userJSONString = JSONSerialization.toJsonString(dataObj: user) {
-//                headers.append(HTTPHeader(name: "X-app-user", value: userJSONString))
-//            }
-//        }
+        if let token = Session.shared.authToken?.token {
+            headers.append(HTTPHeader(name: "Authorization", value: "Bearer \(token)"))
+        }
+
+        if let user = Session.shared.user {
+            if let userJSONString = JSONSerialization.toJsonString(dataObj: user) {
+                headers.append(HTTPHeader(name: "X-app-user", value: userJSONString))
+            }
+        }
 
         if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             headers.append(HTTPHeader(name: "X-app-version", value: appVersion))

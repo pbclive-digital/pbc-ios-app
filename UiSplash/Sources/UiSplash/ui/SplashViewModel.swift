@@ -28,4 +28,12 @@ class SplashViewModel: ObservableObject {
             onFailure()
         })
     }
+    
+    func fetchConfig() {
+        network.invokeGET(path: "/config/get/v1", responseType: BaseResponse<Config>.self, onSuccess: { response in
+            Session.shared.config = response.body
+        }, onError: { netError in
+            
+        })
+    }
 }
