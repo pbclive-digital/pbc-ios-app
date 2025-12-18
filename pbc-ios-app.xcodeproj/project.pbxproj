@@ -25,6 +25,7 @@
 		5A43145F2EE79CE200003CE3 /* UiSplash */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UiSplash; sourceTree = "<group>"; };
 		5A4314632EE7B82F00003CE3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5A4314642EE7B9AA00003CE3 /* LibNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LibNetwork; sourceTree = "<group>"; };
+		5AD853CC2EF3899B00F8CC0B /* UiAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UiAuth; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -64,6 +65,7 @@
 				5A4314562EE7991100003CE3 /* LibCommonUi */,
 				5A4314642EE7B9AA00003CE3 /* LibNetwork */,
 				5A43145F2EE79CE200003CE3 /* UiSplash */,
+				5AD853CC2EF3899B00F8CC0B /* UiAuth */,
 				5A4314532EE798D200003CE3 /* Frameworks */,
 				5A4314382EE77E6000003CE3 /* Products */,
 			);
