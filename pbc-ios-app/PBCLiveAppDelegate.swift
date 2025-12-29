@@ -25,6 +25,9 @@ class PBCLiveAppDelegate: UIResponder, UIApplicationDelegate {
         network.initialize(netConfig: NetConfig(
             schema: "https", domain: "pbc-api-staging-1f3fe32cb947.herokuapp.com", networkHeaders: []
         ))
+        
+        // Registering all Ui Modules
+        PBCModuleConfig().registerUIModules()
 
         return true
     }
