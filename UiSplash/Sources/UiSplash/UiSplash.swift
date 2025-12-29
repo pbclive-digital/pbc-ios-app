@@ -3,12 +3,14 @@
 import SwiftUI
 import LibParent
 
-public class UiSplash: @MainActor SplashContract {
+public class UiSplash: SplashContract {
     
     public init() {}
     
-    @MainActor public func retrieveEntryUI() -> AnyView {
+    public func retrieveEntryUI() -> AnyView {
         return AnyView(SplashView())
     }
+    
+    public func invokeAction(actionName: String) -> String { "" }
     
 }

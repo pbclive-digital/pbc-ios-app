@@ -3,12 +3,13 @@
 import SwiftUI
 import LibParent
 
-public class UiAuth: @MainActor AuthContract {
+public class UiAuth: AuthContract {
     
     public init() {}
     
-    @MainActor public func retrieveEntryUI() -> AnyView {
-        return AnyView(AuthView())
+    public func retrieveEntryUI() -> AnyView {
+        return AnyView(LoginView())
     }
     
+    public func invokeAction(actionName: String) -> String { "" }
 }

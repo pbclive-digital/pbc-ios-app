@@ -20,7 +20,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/hmlongco/Factory.git", from: "2.5.3"),
-        .package(url: "https://github.com/KvColorPalette/KvColorPalette-iOS.git", from: "2.0.1"),
+        .package(url: "https://github.com/KvColorPalette/KvColorPalette-iOS.git", from: "2.1.0"),
         .package(path: "../LibParent"),
         .package(path: "../LibCommonData"),
         .package(path: "../LibCommonUi"),
@@ -38,6 +38,9 @@ let package = Package(
                 "LibCommonData",
                 "LibCommonUi",
                 "LibNetwork"
+            ],
+            resources: [
+                .process("resources/Media.xcassets")
             ]
         ),
 

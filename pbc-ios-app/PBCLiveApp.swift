@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-import UiSplash
+import Factory
+import LibParent
 
 @main
 struct PBCLiveApp: App {
@@ -15,7 +16,7 @@ struct PBCLiveApp: App {
 
     var body: some Scene {
         WindowGroup {
-            UiSplash().retrieveEntryUI()
+            UiNavigator.shared.navigateToUiModule(moduleName: "SPLASH")
         }
     }
 }
