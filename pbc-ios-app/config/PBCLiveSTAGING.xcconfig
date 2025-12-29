@@ -1,0 +1,11 @@
+//
+//  PBCLiveSTAGING.xcconfig
+//  pbc-ios-app
+//
+//  Created by Kavimal Wijewardana on 12/29/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+APP_BASE_URL_SCHEME = https
+APP_BASE_URL = pbc-api-staging-1f3fe32cb947.herokuapp.com

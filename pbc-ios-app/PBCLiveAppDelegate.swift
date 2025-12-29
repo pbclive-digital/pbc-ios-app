@@ -22,9 +22,8 @@ class PBCLiveAppDelegate: UIResponder, UIApplicationDelegate {
         KvColorPalette.initialize(basicColor: .baseColor)
         
         // Initiate the Network
-        network.initialize(netConfig: NetConfig(
-            schema: "https", domain: "pbc-api-staging-1f3fe32cb947.herokuapp.com", networkHeaders: []
-        ))
+        let netConfig = NetConfig(schema: AppConfig.baseURLScheme, domain: AppConfig.baseURL, networkHeaders: nil)
+        network.initialize(netConfig: netConfig)
         
         // Registering all Ui Modules
         PBCModuleConfig().registerUIModules()
