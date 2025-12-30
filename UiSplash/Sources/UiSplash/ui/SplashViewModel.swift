@@ -6,6 +6,8 @@
 //
 import Foundation
 import Factory
+import GoogleSignIn
+import FirebaseAuth
 import LibParent
 import LibCommonData
 import LibNetwork
@@ -16,38 +18,31 @@ class SplashViewModel: ObservableObject {
     @Injected(\.network) private var network: NetworkProtocol
     @Injected(\.dataStore) var dataStore: LocalDataStore
     
-    @Published private(set) var uiState = SplashUiState.NONE
+    @Published private(set) var splashUiState = SplashUiState.NONE
+    @Published private(set) var errorType = AppErrorType.GENERAL
     
-    typealias ConfigSuccessResponse = () -> Void
-    typealias AuthTokenSuccessResponse = @Sendable() -> Void
-    typealias FailureResponse = @Sendable(_ viewMode: AppErrorType) -> Void
-    
-    func fetchVersionSupportStatus(onSuccess: @escaping @Sendable () -> Void, onFailure: @escaping @Sendable () -> Void) {
+    func fetchVersionSupportStatus() {
         network.invokeGET(path: "/config/get/app-support/status", responseType: BaseResponse<AppVersionStatus>.self, onSuccess: { response in
             if response.body.support {
                 Task { @MainActor in
-                    // Fetch application config
-                    self.fetchConfig()
-                    
                     let authMethod = self.dataStore.retrieveObject(key: LocalDataKey.APP_AUTH_METHOD, responseType: UserAuthType.self)
                     if (authMethod == UserAuthType.APPLE) {
                         
                     } else if (authMethod == UserAuthType.GOOGLE) {
-                        
+                        await self.checkPreviousGoogleSignIn()
                     } else {
-                        self.uiState = .ON_UPDATED_REQUIRED
+                        self.splashUiState = .ON_AUTH_NAVIGATION
                     }
                 }
             } else {
-                //onFailure()
                 Task { @MainActor in
-                    self.uiState = .ON_UPDATED_REQUIRED
+                    self.splashUiState = .ON_UPDATED_REQUIRED
+                    self.errorType = .NEED_UPDATE
                 }
             }
         }, onError: { netError in
-            //onFailure()
             Task { @MainActor in
-                self.uiState = .ON_UPDATED_REQUIRED
+                self.splashUiState = .ON_UPDATED_REQUIRED
             }
         })
     }
@@ -55,12 +50,29 @@ class SplashViewModel: ObservableObject {
     func fetchConfig() {
         network.invokeGET(path: "/config/get/v1", responseType: BaseResponse<Config>.self, onSuccess: { response in
             Session.shared.config = response.body
-        }, onError: { netError in
-            
-        })
+        }, onError: { netError in })
     }
     
-    func requestAuthToken(onSuccess: @escaping AuthTokenSuccessResponse, onFailure: @escaping FailureResponse) {
+    private func checkPreviousGoogleSignIn() async {
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil {
+                // Application don't have sign-in user
+                Task { @MainActor in
+                    self.splashUiState = SplashUiState.ON_AUTH_NAVIGATION
+                }
+            } else {
+                Task { @MainActor in
+                    if self.dataStore.retrieveBool(key: LocalDataKey.IS_LOGIN) {
+                        self.requestAuthToken()
+                    } else {
+                        self.splashUiState = .ON_AUTH_NAVIGATION
+                    }
+                }
+            }
+        }
+    }
+    
+    private func requestAuthToken() {
         
         let accountId = UiActionExecutor.shared.executeAction(moduleName: "AUTH", actionName: "GET_LAST_ACC_ID")
         let accountEmail = UiActionExecutor.shared.executeAction(moduleName: "AUTH", actionName: "GET_LAST_EMAIL")
@@ -75,40 +87,44 @@ class SplashViewModel: ObservableObject {
                 
                 //Fetch user data
                 Task { @MainActor in
-                    self.fetchUser(userId: Session.shared.authToken?.userId, onSuccess: onSuccess, onFailure: onFailure)
+                    self.fetchUser(userId: Session.shared.authToken?.userId)
                 }
             }, onError: { netError in
                 if (netError?.errorCode == 401) {
                     Task { @MainActor in
-                        self.generateAuthToken(email: email, userId: uid, onSuccess: onSuccess, onFailure: onFailure)
+                        self.generateAuthToken(email: email, userId: uid)
                     }
                 } else {
                     Task { @MainActor in
-                        self.invokeFailure(netError: netError, onFailure: onFailure)
+                        self.invokeFailure(netError: netError)
                     }
                 }
             })
         } else {
-            onFailure(AppErrorType.UNATHORIZED)
+            Task { @MainActor in
+                self.splashUiState = SplashUiState.ON_ERROR
+                self.errorType = .UNATHORIZED
+            }
         }
     }
     
-    private func fetchUser(userId: String?, onSuccess: @escaping @Sendable AuthTokenSuccessResponse, onFailure: @escaping @Sendable FailureResponse) {
+    private func fetchUser(userId: String?) {
         guard let id = userId else { return }
         
-        network.invokeGET(path: "/user/get/\(id)", responseType: BaseResponse<User>.self, onSuccess: { response in
+        network.invokeGET(path: "/user/get/\(id)", responseType: BaseResponse<PBCUser>.self, onSuccess: { response in
             Session.shared.user = response.body
             //self.updatePushToken()
-            onSuccess()
+            Task { @MainActor in
+                self.splashUiState = SplashUiState.ON_DASHBOARD_NAVIGATION
+            }
         }, onError: { netError in
             Task { @MainActor in
-                self.invokeFailure(netError: netError, onFailure: onFailure)
+                self.invokeFailure(netError: netError)
             }
         })
     }
     
-    private func generateAuthToken(email: String, userId: String?,
-                                   onSuccess: @escaping AuthTokenSuccessResponse, onFailure: @escaping FailureResponse) {
+    private func generateAuthToken(email: String, userId: String?) {
 
         let authToken = AuthToken(email: email, userId: userId)
         
@@ -121,25 +137,33 @@ class SplashViewModel: ObservableObject {
                 // Set the sign-in flag
                 self.dataStore.storeValue(key: LocalDataKey.IS_LOGIN, data: true)
                 
-                self.fetchUser(userId: userId, onSuccess: onSuccess, onFailure: onFailure)
+                self.fetchUser(userId: userId)
             }
         }, onError: { netError in
             Task { @MainActor in
-                self.invokeFailure(netError: netError, onFailure: onFailure)
+                self.invokeFailure(netError: netError)
             }
         })
     }
     
-    private func invokeFailure(netError: NetError?, onFailure: @escaping FailureResponse) {
+    private func invokeFailure(netError: NetError?) {
         guard let errorType = netError?.errorType else { return }
         switch(errorType) {
         case .HTTP_ERROR: if (netError?.errorCode == 401) {
-            onFailure(AppErrorType.UNATHORIZED)
+            //onFailure(AppErrorType.UNATHORIZED)
+            Task { @MainActor in
+                self.splashUiState = SplashUiState.ON_ERROR
+                self.errorType = .UNATHORIZED
+            }
         } else {
-            onFailure(AppErrorType.NO_CONNECTION)
+            Task { @MainActor in
+                self.splashUiState = SplashUiState.ON_ERROR
+                self.errorType = .NO_CONNECTION
+            }
         }
         default:
-            onFailure(errorType)
+            self.splashUiState = SplashUiState.ON_ERROR
+            self.errorType = .GENERAL
         }
     }
 }

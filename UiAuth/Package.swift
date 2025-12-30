@@ -20,6 +20,8 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/hmlongco/Factory.git", from: "2.5.3"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.29.0"),
+        .package(url: "https://github.com/google/GoogleSignIn-iOS.git", from: "7.1.0"),
         .package(url: "https://github.com/KvColorPalette/KvColorPalette-iOS.git", from: "2.1.0"),
         .package(path: "../LibParent"),
         .package(path: "../LibCommonData"),
@@ -32,6 +34,9 @@ let package = Package(
         .target(
             name: "UiAuth",
             dependencies: [
+                .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS"),
+                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseAnalytics", package: "firebase-ios-sdk"),
                 "Factory",
                 "KvColorPalette-iOS",
                 "LibParent",

@@ -7,9 +7,12 @@
 import Foundation
 import SwiftUI
 import Factory
+import KvColorPalette_iOS
+import Firebase
+import GoogleSignIn
 import LibCommonUi
 import LibNetwork
-import KvColorPalette_iOS
+
 
 @MainActor
 class PBCLiveAppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +21,9 @@ class PBCLiveAppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        // Init firebase
+        FirebaseApp.configure()
+        
         // Initiate the KvColorPallet-iOS with with app base color
         KvColorPalette.initialize(basicColor: .baseColor)
         

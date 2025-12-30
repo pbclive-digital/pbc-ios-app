@@ -7,6 +7,7 @@
 import SwiftUI
 import Factory
 import LibCommonUi
+import LibCommonData
 import LibParent
 import KvColorPalette_iOS
 
@@ -16,8 +17,8 @@ struct SplashView: @MainActor View {
     @ObservedObject var splashViewModel = SplashViewModel()
     
     @State private var navigateToAuthView = false
-    
-    @Injected(\.dataStore) var dataStore: LocalDataStore
+    @State private var navigateToDashboardView = false
+    @State private var navigateToErrorView = false
     
     var body: some View {
         NavigationStack {
@@ -40,36 +41,34 @@ struct SplashView: @MainActor View {
             }.onAppear {
                 self.wave.toggle()
                 
-                splashViewModel.fetchVersionSupportStatus(onSuccess: {
-                    Task { @MainActor in
-                        navigateToAuthView = true
-                    }
-                }, onFailure: {
-                    print(">>>>>>>>>>>>> FAILURE")
-                })
-                    
+                // Retrieve support version and continue on flow
+                splashViewModel.fetchVersionSupportStatus()
+                
+                // Async configuration fetch
                 splashViewModel.fetchConfig()
+                
+            }.onChange(of: splashViewModel.splashUiState) { oldState, newState in
+                switch(newState) {
+                case .NONE:
+                    print("NONE")
+                case .ON_AUTH_NAVIGATION:
+                    navigateToAuthView = true
+                case .ON_UPDATED_REQUIRED:
+                    navigateToErrorView = true
+                case .ON_DASHBOARD_NAVIGATION:
+                    navigateToDashboardView = true
+                default:
+                    print("DEFAULT")
+                }
             }.animation(
                 Animation.easeIn(duration: 3).repeatForever(autoreverses: false), value: wave
             )
             .navigationDestination(isPresented: $navigateToAuthView, destination: {
                 UiNavigator.shared.navigateToUiModule(moduleName: "AUTH")
             })
-        }
-    }
-    
-    private func requestAuthTokenAndContinue() {
-        // Application already have a sign-in user.
-        if dataStore.retrieveBool(key: LocalDataKey.IS_LOGIN) {
-            // Fetch auth Token and User
-            splashViewModel.requestAuthToken(onSuccess: {
-                //navigateToDashboardView = true
-            }, onFailure: { viewMode in
-                //navigateToErrorViewType = viewMode
-                //navigateToErrorView = true
+            .navigationDestination(isPresented: $navigateToErrorView, destination: {
+                AppCommonErrorView(viewMode: self.splashViewModel.errorType, navigateType: .CLOSE)
             })
-        } else {
-            navigateToAuthView = true
         }
     }
 }

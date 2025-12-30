@@ -13,7 +13,7 @@ public final class Session {
     
     public var config: Config? = nil
     public var authToken: AuthToken? = nil
-    public var user: User? = nil
+    public var user: PBCUser? = nil
     
     public init() {}
 }

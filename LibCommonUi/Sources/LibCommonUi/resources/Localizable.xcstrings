@@ -1,0 +1,127 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "label.close" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CLOSE"
+          }
+        }
+      }
+    },
+    "label.error.no.connection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Connection Available!"
+          }
+        }
+      }
+    },
+    "label.error.no.internet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Internet Available!"
+          }
+        }
+      }
+    },
+    "label.error.service.unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service Unavailable!"
+          }
+        }
+      }
+    },
+    "label.error.unauthorized" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unauthorized!"
+          }
+        }
+      }
+    },
+    "label.error.update.needed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Needed!"
+          }
+        }
+      }
+    },
+    "phrase.error.no.connection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server is not available to connect. Please try again later!. Sorry for the inconvenience."
+          }
+        }
+      }
+    },
+    "phrase.error.no.internet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Internet not available in the device. Please check the internet connection and try again later."
+          }
+        }
+      }
+    },
+    "phrase.error.service.unavailable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Service is unavailable. Please try again after few minutes."
+          }
+        }
+      }
+    },
+    "phrase.error.unauthorized" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are not log-in or your session is expired. Please login back from sign-in screen."
+          }
+        }
+      }
+    },
+    "phrase.error.update.needed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This installed version of the application is not supported anymore. Please update your application from Apple AppStore."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}
