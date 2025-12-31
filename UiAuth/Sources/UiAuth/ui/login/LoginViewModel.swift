@@ -18,6 +18,7 @@ class LoginViewModel: ObservableObject {
     @Injected(\.dataStore) var dataStore: LocalDataStore
     
     @Published private(set) var loginUiState = LoginUiState.NONE
+    @Published private(set) var errorType = AuthErrorType.NONE
     
     func storeUserAuthMethodAsGoogle() {
         dataStore.storeObject(key: LocalDataKey.APP_AUTH_METHOD, responseType: UserAuthType.self, data: UserAuthType.GOOGLE)
@@ -28,6 +29,7 @@ class LoginViewModel: ObservableObject {
         guard let userEmail = email else { return }
         guard let userId = uid else { return }
         
+        loginUiState = .PENDING
         network.invokeGET(path: "/auth/get/\(userEmail)/\(userId)", responseType: BaseResponse<String>.self, onSuccess: { response in
             switch response.body {
             case "REGISTERED":
@@ -39,16 +41,15 @@ class LoginViewModel: ObservableObject {
                     self.loginUiState = .ON_REGISTER_NAVIGATION
                 }
             default:
-                print("DEFAULT")
                 Task { @MainActor in
                     self.loginUiState = .ON_ERROR
+                    self.errorType = AuthErrorType.NONE
                 }
-                //onError("User status is not defined as expected")
             }
         }, onError: { netError in
-            //onError(netError?.errorMessage ?? "")
             Task { @MainActor in
                 self.loginUiState = .ON_ERROR
+                self.errorType = AuthErrorType.HTTP_ERROR
             }
         })
     }
@@ -73,9 +74,9 @@ class LoginViewModel: ObservableObject {
                         self.generateAuthToken(email: email, userId: uid)
                     }
                 } else {
-                    //onError(netError?.errorMessage ?? "")
                     Task { @MainActor in
                         self.loginUiState = .ON_ERROR
+                        self.errorType = AuthErrorType.HTTP_ERROR
                     }
                 }
             })
@@ -98,9 +99,9 @@ class LoginViewModel: ObservableObject {
                 self.fetchUser(userId: userId)
             }
         }, onError: { netError in
-            //onError(netError?.errorMessage ?? "")
             Task { @MainActor in
                 self.loginUiState = .ON_ERROR
+                self.errorType = AuthErrorType.HTTP_ERROR
             }
         })
     }
@@ -113,13 +114,13 @@ class LoginViewModel: ObservableObject {
             // Set the sign-in flag
             Task { @MainActor in
                 self.dataStore.storeValue(key: LocalDataKey.IS_LOGIN, data: true)
+                self.loginUiState = .ON_DASHBOARD_NAVIGATION
             }
             //self.updatePushToken()
-            //completion()
         }, onError: { netError in
-            //onError(netError?.errorMessage ?? "")
             Task { @MainActor in
                 self.loginUiState = .ON_ERROR
+                self.errorType = AuthErrorType.HTTP_ERROR
             }
         })
     }

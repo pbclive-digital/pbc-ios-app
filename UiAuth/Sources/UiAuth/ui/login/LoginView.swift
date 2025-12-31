@@ -18,6 +18,7 @@ struct LoginView: View {
     
     @ObservedObject var loginViewModel = LoginViewModel()
     
+    @State private var isLoading: Bool = false
     @State private var navigateToDashboardView = false
     @State private var navigateToErrorView = false
     @State private var navigateToRegistrationView = false
@@ -58,7 +59,7 @@ struct LoginView: View {
                 .padding(.trailing, 20)
                 
                 Button(action: {
-                    //navigateToDashboardView = true
+                    navigateToDashboardView = true
                 }, label: {
                     Text("label.guest", bundle: .module)
                         .font(.system(size: 16, weight: .light))
@@ -67,16 +68,35 @@ struct LoginView: View {
                         .underline()
                 })
             }
+            
+            if isLoading {
+                AppLoadingBasic()
+            }
         }
         .navigationBarHidden(true)
         .onChange(of: loginViewModel.loginUiState) { oldState, newState in
             switch(newState) {
-            case .NONE:
-                print("")
+            case .PENDING:
+                isLoading = true
+            case .ON_REGISTER_NAVIGATION:
+                isLoading = false
+                navigateToRegistrationView = true
+            case .ON_DASHBOARD_NAVIGATION:
+                isLoading = false
+                navigateToDashboardView = true
+            case .ON_ERROR:
+                isLoading = false
+                navigateToErrorView = true
             default:
-                print("")
+                isLoading = false
             }
         }
+        .fullScreenCover(isPresented: $navigateToErrorView, content: {
+            AppCommonErrorView(viewMode: .UNATHORIZED, navigateType: .BACK)
+        })
+        .fullScreenCover(isPresented: $navigateToRegistrationView, content: {
+            RegisterView()
+        })
     }
     
     private func startSignInWithGoogle() {
@@ -109,15 +129,16 @@ struct LoginView: View {
                 
                 guard let user = res?.user else { return }
                 // Get the User from Google Sign In module just after sign-in success
-                let googleUser = GIDSignIn.sharedInstance.currentUser
+                // let googleUser = GIDSignIn.sharedInstance.currentUser
                 
+                let uid = user.uid
                 let email = user.email ?? "NO_EMAIL"
                 
                 Task { @MainActor in
                     loginViewModel.storeUserAuthMethodAsGoogle()
                     
                     if email != "NO_EMAIL" {
-                        loginViewModel.fetchUserStatus(email: email, uid: googleUser?.userID)
+                        loginViewModel.fetchUserStatus(email: email, uid: uid)
                     }
                 }
             })
