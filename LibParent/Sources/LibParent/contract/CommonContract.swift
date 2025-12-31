@@ -7,6 +7,8 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 public protocol CommonContract {
     func retrieveEntryUI() -> AnyView
+    func invokeAction(actionName: String) -> String
 }

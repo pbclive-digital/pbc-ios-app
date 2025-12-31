@@ -1,0 +1,11 @@
+//
+//  PBCLiveDev.xcconfig
+//  pbc-ios-app
+//
+//  Created by Kavimal Wijewardana on 12/29/25.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+APP_BASE_URL_SCHEME = http
+APP_BASE_URL = 192.168.40.37:8082
