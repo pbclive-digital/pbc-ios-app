@@ -19,6 +19,7 @@
 		5AD8541D2F017B7400F8CC0B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5AD8541C2F017B7400F8CC0B /* FirebaseAuth */; };
 		5AD854202F017BF400F8CC0B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5AD8541F2F017BF400F8CC0B /* GoogleSignIn */; };
 		5AD854222F017BF400F8CC0B /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5AD854212F017BF400F8CC0B /* GoogleSignInSwift */; };
+		5AF4E91C2F072F69001BBCF1 /* UiDashboard in Frameworks */ = {isa = PBXBuildFile; productRef = 5AF4E91B2F072F69001BBCF1 /* UiDashboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		5A4314632EE7B82F00003CE3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5A4314642EE7B9AA00003CE3 /* LibNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LibNetwork; sourceTree = "<group>"; };
 		5AD853CC2EF3899B00F8CC0B /* UiAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UiAuth; sourceTree = "<group>"; };
+		5AF4E90F2F072976001BBCF1 /* UiDashboard */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UiDashboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -61,6 +63,7 @@
 				5A43145B2EE79A6300003CE3 /* LibCommonUi in Frameworks */,
 				5AD8541D2F017B7400F8CC0B /* FirebaseAuth in Frameworks */,
 				5AD854202F017BF400F8CC0B /* GoogleSignIn in Frameworks */,
+				5AF4E91C2F072F69001BBCF1 /* UiDashboard in Frameworks */,
 				5AD854222F017BF400F8CC0B /* GoogleSignInSwift in Frameworks */,
 				5A4314612EE79EC500003CE3 /* UiSplash in Frameworks */,
 				5A4314762EEA50F600003CE3 /* FactoryKit in Frameworks */,
@@ -87,6 +90,7 @@
 				5A4314642EE7B9AA00003CE3 /* LibNetwork */,
 				5A43145F2EE79CE200003CE3 /* UiSplash */,
 				5AD853CC2EF3899B00F8CC0B /* UiAuth */,
+				5AF4E90F2F072976001BBCF1 /* UiDashboard */,
 				5A4314532EE798D200003CE3 /* Frameworks */,
 				5A4314382EE77E6000003CE3 /* Products */,
 			);
@@ -139,6 +143,7 @@
 				5AD8541C2F017B7400F8CC0B /* FirebaseAuth */,
 				5AD8541F2F017BF400F8CC0B /* GoogleSignIn */,
 				5AD854212F017BF400F8CC0B /* GoogleSignInSwift */,
+				5AF4E91B2F072F69001BBCF1 /* UiDashboard */,
 			);
 			productName = "pbc-ios-app";
 			productReference = 5A4314372EE77E6000003CE3 /* pbc-ios-app.app */;
@@ -736,6 +741,10 @@
 		5AD854212F017BF400F8CC0B /* GoogleSignInSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GoogleSignInSwift;
+		};
+		5AF4E91B2F072F69001BBCF1 /* UiDashboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UiDashboard;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

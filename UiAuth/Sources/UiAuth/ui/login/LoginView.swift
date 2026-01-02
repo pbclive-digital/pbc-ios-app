@@ -76,6 +76,8 @@ struct LoginView: View {
         .navigationBarHidden(true)
         .onChange(of: loginViewModel.loginUiState) { oldState, newState in
             switch(newState) {
+            case .NONE:
+                print("NONE")
             case .PENDING:
                 isLoading = true
             case .ON_REGISTER_NAVIGATION:
@@ -87,10 +89,11 @@ struct LoginView: View {
             case .ON_ERROR:
                 isLoading = false
                 navigateToErrorView = true
-            default:
-                isLoading = false
             }
         }
+        .fullScreenCover(isPresented: $navigateToDashboardView, content: {
+            UiNavigator.shared.navigateToUiModule(moduleName: "DASHBOARD", entryData: nil)
+        })
         .fullScreenCover(isPresented: $navigateToErrorView, content: {
             AppCommonErrorView(viewMode: .UNATHORIZED, navigateType: .BACK)
         })

@@ -7,6 +7,7 @@
 import Foundation
 import SwiftUI
 import GoogleSignIn
+import LibParent
 import LibCommonUi
 import LibCommonData
 
@@ -24,6 +25,9 @@ struct RegisterView: View {
     @State private var address: String = ""
     @State private var email: String = ""
     @State private var imageUrl: String = ""
+    
+    @State private var navigateToDashboardView = false
+    @State private var navigateToErrorView = false
     
     public var body: some View {
         ZStack {
@@ -116,6 +120,26 @@ struct RegisterView: View {
             email = newUser.email
             imageUrl = newUser.profilePicUrl ?? ""
         }
+        .onChange(of: registerViewModel.registerUiState) { olderState, newState in
+            switch(newState) {
+            case .NONE:
+                print("NONE")
+            case .PENDING:
+                isLoading = true
+            case .ON_DASHBOARD_NAVIGATION:
+                isLoading = false
+                navigateToDashboardView = true
+            case .ON_ERROR:
+                isLoading = false
+                navigateToErrorView = true
+            }
+        }
+        .fullScreenCover(isPresented: $navigateToDashboardView, content: {
+            UiNavigator.shared.navigateToUiModule(moduleName: "DASHBOARD", entryData: nil)
+        })
+        .fullScreenCover(isPresented: $navigateToErrorView, content: {
+            AppCommonErrorView(viewMode: .UNATHORIZED, navigateType: .BACK)
+        })
     }
 }
 

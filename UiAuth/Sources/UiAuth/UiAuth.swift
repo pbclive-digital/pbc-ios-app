@@ -45,8 +45,10 @@ public class UiAuth: AuthContract {
             let appleUser = Auth.auth().currentUser
             return appleUser?.uid ?? "NIL"
         } else if (authMethod == UserAuthType.GOOGLE) {
-            let googleUser = GIDSignIn.sharedInstance.currentUser
-            return googleUser?.userID ?? "NIL"
+            //let googleUser = GIDSignIn.sharedInstance.currentUser
+            //return googleUser?.userID ?? "NIL"
+            let googleUser = Auth.auth().currentUser
+            return googleUser?.uid ?? "NIL"
         }
         return "NIL"
     }

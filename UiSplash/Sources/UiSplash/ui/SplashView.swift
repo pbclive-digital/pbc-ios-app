@@ -66,6 +66,9 @@ struct SplashView: @MainActor View {
             .navigationDestination(isPresented: $navigateToAuthView, destination: {
                 UiNavigator.shared.navigateToUiModule(moduleName: "AUTH")
             })
+            .navigationDestination(isPresented: $navigateToDashboardView, destination: {
+                UiNavigator.shared.navigateToUiModule(moduleName: "DASHBOARD")
+            })
             .navigationDestination(isPresented: $navigateToErrorView, destination: {
                 AppCommonErrorView(viewMode: self.splashViewModel.errorType, navigateType: .CLOSE)
             })
